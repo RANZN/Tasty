@@ -32,8 +32,8 @@ class MainRecyclerViewAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(
                 return FeaturedViewHolder(binding)
             }
             2 -> {
-                val binding = ShoppableItemLayoutBinding.inflate(layoutInflater, parent, false)
-                return ShoppableCarouselViewHolder(binding)
+                val binding = CarouselItemLayoutBinding.inflate(layoutInflater, parent, false)
+                return CarouselViewHolder(binding)
             }
             3 -> {
                 val binding = CarouselItemLayoutBinding.inflate(layoutInflater, parent, false)
@@ -52,7 +52,7 @@ class MainRecyclerViewAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(
                 (holder as FeaturedViewHolder).bindData(list[position])
             }
             2 -> {
-                (holder as ShoppableCarouselViewHolder).bindData(list[position])
+                (holder as CarouselViewHolder).bindData(list[position])
             }
             3 -> {
                 (holder as CarouselViewHolder).bindData(list[position])

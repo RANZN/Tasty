@@ -18,10 +18,11 @@
 
             <ImageView
                 android:id="@+id/ivItemImage"
+                android:minWidth="200sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minWidth="200dp"
-                android:minHeight="200dp" />
+                android:minHeight="200sp"
+                android:scaleType="fitXY" />
 
         </androidx.cardview.widget.CardView>
 

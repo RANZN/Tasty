@@ -16,5 +16,5 @@ class TheViewModel @Inject constructor(private val repo: Repo) : ViewModel() {
     }
 
     fun getLiveData() = data
-
+    fun getErrors() = repo.getErrors()
 }
