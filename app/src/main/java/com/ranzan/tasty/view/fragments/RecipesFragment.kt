@@ -9,11 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.ranzan.tasty.R
 import com.ranzan.tasty.databinding.FragmentDiscoverBinding
+import com.ranzan.tasty.databinding.FragmentReceipesBinding
 import com.ranzan.tasty.viewmodel.TheViewModel
 
 class RecipesFragment : Fragment() {
 
-    private lateinit var binding: FragmentDiscoverBinding
+    private lateinit var binding: FragmentReceipesBinding
     private val viewModel by activityViewModels<TheViewModel>()
 
     override fun onCreateView(

@@ -6,9 +6,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.ranzan.tasty.R
 import com.ranzan.tasty.databinding.ActivityMainBinding
+import com.ranzan.tasty.view.fragments.DiscoverFragment
+import com.ranzan.tasty.view.fragments.RecipesFragment
 import com.ranzan.tasty.viewmodel.TheViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
+
+/**
+ *
+ */
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
@@ -19,6 +25,22 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         viewModel.getData()
-    }
 
+
+        //adding first fragment by default
+        supportFragmentManager.beginTransaction().replace(R.id.fragContainer, DiscoverFragment()).commit()
+        binding.bottomNavBar.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.discover -> {
+                    supportFragmentManager.beginTransaction().replace(R.id.fragContainer, DiscoverFragment()).commit()
+                    return@setOnItemSelectedListener true
+                }
+                R.id.recipes -> {
+                    supportFragmentManager.beginTransaction().replace(R.id.fragContainer, RecipesFragment()).commit()
+                    return@setOnItemSelectedListener true
+                }
+            }
+            return@setOnItemSelectedListener false
+        }
+    }
 }
