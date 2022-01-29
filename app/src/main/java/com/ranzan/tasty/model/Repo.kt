@@ -1,9 +1,7 @@
 package com.ranzan.tasty.model
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ranzan.tasty.model.remote.ApiClient
-import com.ranzan.tasty.model.remote.ResponseModel
 import com.ranzan.tasty.model.remote.ResultsItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +14,11 @@ class Repo @Inject constructor(private val apiClient: ApiClient) {
 
     fun getData(): MutableLiveData<ArrayList<ResultsItem>> {
         CoroutineScope(Dispatchers.IO).launch {
-            dataList.postValue(apiClient.getData().results!! as ArrayList<ResultsItem>?)
+            try {
+                dataList.postValue(apiClient.getData().results!! as ArrayList<ResultsItem>?)
+            } catch (e: Exception) {
+
+            }
         }
         return dataList
     }
