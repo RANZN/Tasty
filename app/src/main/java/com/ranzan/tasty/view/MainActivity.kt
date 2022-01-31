@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         viewModel.getData()
-
+        
         //adding first fragment by default
         supportFragmentManager.beginTransaction().replace(R.id.fragContainer, DiscoverFragment()).commit()
         binding.bottomNavBar.setOnItemSelectedListener { item ->

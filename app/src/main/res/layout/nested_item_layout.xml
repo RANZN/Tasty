@@ -9,8 +9,8 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/imageLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="200sp"
+            android:layout_height="200sp"
             android:elevation="20dp"
             app:cardCornerRadius="10dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -18,10 +18,8 @@
 
             <ImageView
                 android:id="@+id/ivItemImage"
-                android:minWidth="200sp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="200sp"
+                android:layout_height="match_parent"
                 android:scaleType="fitXY" />
 
         </androidx.cardview.widget.CardView>

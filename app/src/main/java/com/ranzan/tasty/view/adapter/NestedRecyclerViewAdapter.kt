@@ -22,6 +22,7 @@ class NestedRecyclerViewAdapter(private val list: List<ItemsItem?>) : RecyclerVi
 
     override fun getItemCount(): Int = list.size
 
+
 }
 
 class NestedRecyclerViewHolder(private val binding: NestedItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
