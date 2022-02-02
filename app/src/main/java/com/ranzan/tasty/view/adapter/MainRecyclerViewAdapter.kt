@@ -10,16 +10,18 @@ import com.ranzan.tasty.databinding.CarouselItemLayoutBinding
 import com.ranzan.tasty.databinding.FeaturedItemLayoutBinding
 import com.ranzan.tasty.databinding.ShoppableItemLayoutBinding
 import com.ranzan.tasty.model.remote.ResultsItem
+import com.ranzan.tasty.view.listners.OnItemClick
 
-class MainRecyclerViewAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MainRecyclerViewAdapter(private val onItemClick: OnItemClick) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var list = ArrayList<ResultsItem>()
 
     override fun getItemViewType(position: Int): Int {
         when (list[position].type) {
             "featured" -> return 1
-            "shoppable_carousel" -> return 2
+            "shoppable_carousel" -> return 3
             "carousel" -> return 3
+            "item" -> return 1
         }
         return 4
     }
@@ -32,8 +34,8 @@ class MainRecyclerViewAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(
                 return FeaturedViewHolder(binding)
             }
             2 -> {
-                val binding = CarouselItemLayoutBinding.inflate(layoutInflater, parent, false)
-                return CarouselViewHolder(binding)
+                val binding = ShoppableItemLayoutBinding.inflate(layoutInflater, parent, false)
+                return ShoppableCarouselViewHolder(binding)
             }
             3 -> {
                 val binding = CarouselItemLayoutBinding.inflate(layoutInflater, parent, false)
@@ -49,13 +51,13 @@ class MainRecyclerViewAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (getItemViewType(position)) {
             1 -> {
-                (holder as FeaturedViewHolder).bindData(list[position])
+                (holder as FeaturedViewHolder).bindData(list[position], onItemClick)
             }
             2 -> {
-                (holder as CarouselViewHolder).bindData(list[position])
+                (holder as ShoppableCarouselViewHolder).bindData(list[position], onItemClick)
             }
             3 -> {
-                (holder as CarouselViewHolder).bindData(list[position])
+                (holder as CarouselViewHolder).bindData(list[position], onItemClick)
             }
         }
     }
@@ -73,29 +75,31 @@ class MainRecyclerViewAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>(
 }
 
 class CarouselViewHolder(private val binding: CarouselItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bindData(data: ResultsItem) {
+    fun bindData(data: ResultsItem, onItemClick: OnItemClick) {
         binding.tvResultName.text = data.name
         binding.nestedRecyclerView.apply {
             layoutManager = LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = NestedRecyclerViewAdapter(data.items!!)
-
+            adapter = NestedRecyclerViewAdapter(data.items!!,onItemClick)
         }
     }
 }
 
 class FeaturedViewHolder(private val binding: FeaturedItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bindData(resultsItem: ResultsItem) {
-        binding.featuredImage.apply {
-            Glide.with(this).load(resultsItem.item?.thumbnailUrl).into(this)
+    fun bindData(resultsItem: ResultsItem, onItemClick: OnItemClick) {
+        binding.apply {
+            Glide.with(featuredImage).load(resultsItem.item?.thumbnailUrl).into(featuredImage)
+
+            layout.setOnClickListener {
+                onItemClick.onItemClick(resultsItem.item?.id!!)
+            }
         }
     }
 }
 
 class ShoppableCarouselViewHolder(private val binding: ShoppableItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bindData(resultsItem: ResultsItem) {
+    fun bindData(resultsItem: ResultsItem, onItemClick: OnItemClick) {
 
     }
-
 }
 
 

@@ -8,18 +8,25 @@
         android:layout_height="match_parent"
         tools:context=".view.fragments.DiscoverFragment">
 
-        <SearchView
+        <com.arlib.floatingsearchview.FloatingSearchView
             android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:floatingSearch_close_search_on_keyboard_dismiss="true"
+            app:floatingSearch_leftActionMode="showSearch"
+            app:floatingSearch_searchHint="Search..."
+            app:floatingSearch_showSearchKey="true"
+            app:floatingSearch_suggestionsListAnimDuration="250"
+            app:layout_constraintTop_toTopOf="parent"
+            app:showAsAction="never" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
             android:id="@+id/mainRecyclerView"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_width="match_parent"
-            app:layout_constraintTop_toBottomOf="@id/searchView" />
+            android:paddingTop="65sp"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -29,6 +36,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

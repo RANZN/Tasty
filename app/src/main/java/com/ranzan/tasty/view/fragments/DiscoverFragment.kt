@@ -11,13 +11,15 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ranzan.tasty.databinding.FragmentDiscoverBinding
+import com.ranzan.tasty.view.DetailedActivity
 import com.ranzan.tasty.view.adapter.MainRecyclerViewAdapter
+import com.ranzan.tasty.view.listners.OnItemClick
 import com.ranzan.tasty.viewmodel.TheViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class DiscoverFragment : Fragment() {
+class DiscoverFragment : Fragment(),OnItemClick {
 
     private lateinit var binding: FragmentDiscoverBinding
     private lateinit var layoutAdapter: MainRecyclerViewAdapter
@@ -46,11 +48,17 @@ class DiscoverFragment : Fragment() {
     }
 
     private fun setRecyclerView() {
-        layoutAdapter = MainRecyclerViewAdapter()
+        layoutAdapter = MainRecyclerViewAdapter(this)
         binding.mainRecyclerView.apply {
             adapter = layoutAdapter
             layoutManager = LinearLayoutManager(context)
         }
 
+    }
+
+    override fun onItemClick(id: Int) {
+        val intent=Intent(context,DetailedActivity::class.java)
+        intent.putExtra("id",id)
+        startActivity(intent)
     }
 }
